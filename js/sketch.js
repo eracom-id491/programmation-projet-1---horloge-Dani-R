@@ -7,11 +7,9 @@ let renderer;
 let scene;
 let monde;
 let satM;
-let SatS
 let Null;
 let Null2;
 let lune;
-
 
 // Ne pas toucher au bloc ci-dessous
 function preload() {
@@ -22,6 +20,17 @@ function preload() {
 function init()
 {
   container = document.querySelector(".scene");
+
+
+    //Render
+    renderer = new THREE.WebGLRenderer({antialias:true,  alpha:true});
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+  
+    container.appendChild(renderer.domElement);
+  
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   //creation de la scene
   scene = new THREE.Scene();
@@ -37,9 +46,15 @@ function init()
   camera.position.set(0,0,1000);
 
   //lumiere
-  const light = new THREE.DirectionalLight(0Xffffff,2);
+  const light = new THREE.PointLight(0Xffffff,2);
   scene.add(light);
-  light.position.set(10,10,01);
+  light.castShadow = true;
+  light.position.set(600,400,200);
+
+  light.shadow.mapSize.width = 1024; // default
+  light.shadow.mapSize.height = 1024; // default
+  light.shadow.camera.near = 5; // default
+  light.shadow.camera.far = 1000; // default
 
   //Load model
   let loader = new THREE.GLTFLoader();
@@ -49,6 +64,8 @@ function init()
     monde = gltf.scene.children[1];
     monde.position.set(0,0,0);
     monde.rotation.set(0,0,0);
+    monde.castShadow = true;
+    monde.receiveShadow = true;
     renderer.render(scene,camera);
   })
 
@@ -72,6 +89,8 @@ function init()
     satM.position.set(0,0,200);
     satM.scale.set(0.3,0.3,0.3);
     satM.rotation.set(0,0,-100);
+    satM.castShadow = true;
+    satM.receiveShadow = true;
     Null.attach(satM);
     renderer.render(scene,camera);
   })
@@ -82,49 +101,42 @@ function init()
     lune.position.set(0,0,400);
     lune.rotation.set(0,0,0);
     lune.scale.set(0.5,0.5,0.5);
+    lune.castShadow = true;
+    lune.receiveShadow = true;
     Null2.attach(lune);
     renderer.render(scene,camera);
   })
 
-
-  //Render
-  renderer = new THREE.WebGLRenderer({antialias:true,  alpha:true});
-  renderer.setSize(container.clientWidth, container.clientHeight);
-  renderer.setPixelRatio(window.devicePixelRatio);
-
-  container.appendChild(renderer.domElement);
-  renderer.outputEncoding = THREE.sRGBEncoding;
-
 }
 
 
-
+//Secondesx
 function renderun()
 {
-  Null.rotation.y += 0.05;
+  Null.rotation.y += second();
   renderer.render(scene,camera);
   requestAnimationFrame(renderun);
 }
 
 requestAnimationFrame(renderun);
-
+//Heures
 function renderdeux()
 {
-  monde.rotation.y += 0.01;
+  monde.rotation.y += hour();
   renderer.render(scene,camera);
   requestAnimationFrame(renderdeux);
 }
 
 requestAnimationFrame(renderdeux);
-
+//Minutes
 function renderlune()
 {
-  Null2.rotation.y += 0.03;
+  Null2.rotation.y += minute();
   renderer.render(scene,camera);
   requestAnimationFrame(renderlune);
 }
 requestAnimationFrame(renderlune);
-
+//Rotation lune
 function renderlunetourner()
 {
   lune.rotation.y += 0.01;
@@ -142,20 +154,20 @@ function onWindowResize() {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight); // Ne pas toucher à cette ligne
+  createCanvas(200, 65); // Ne pas toucher à cette ligne
   init();
 }
 
 window.addEventListener("resize", onWindowResize);
 
 function draw() {
-
+  background(0);
   showTime(); // Ne pas toucher à cette ligne
   console.log(minute());
 }
 
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight); // Ne pas toucher à cette ligne
+  resizeCanvas(200, 65); // Ne pas toucher à cette ligne
 }
 
 // Les blocs showTime et formatTime s'occupent d'afficher correctement l'heure en bas à gauche de la page.
