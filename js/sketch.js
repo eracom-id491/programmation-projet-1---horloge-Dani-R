@@ -28,9 +28,6 @@ function init()
     renderer.setPixelRatio(window.devicePixelRatio);
   
     container.appendChild(renderer.domElement);
-  
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
   //creation de la scene
   scene = new THREE.Scene();
@@ -48,13 +45,7 @@ function init()
   //lumiere
   const light = new THREE.PointLight(0Xffffff,2);
   scene.add(light);
-  light.castShadow = true;
   light.position.set(600,400,200);
-
-  light.shadow.mapSize.width = 1024; // default
-  light.shadow.mapSize.height = 1024; // default
-  light.shadow.camera.near = 5; // default
-  light.shadow.camera.far = 1000; // default
 
   //Load model
   let loader = new THREE.GLTFLoader();
@@ -64,8 +55,6 @@ function init()
     monde = gltf.scene.children[1];
     monde.position.set(0,0,0);
     monde.rotation.set(0,0,0);
-    monde.castShadow = true;
-    monde.receiveShadow = true;
     renderer.render(scene,camera);
   })
 
@@ -89,8 +78,6 @@ function init()
     satM.position.set(0,0,200);
     satM.scale.set(0.3,0.3,0.3);
     satM.rotation.set(0,0,-100);
-    satM.castShadow = true;
-    satM.receiveShadow = true;
     Null.attach(satM);
     renderer.render(scene,camera);
   })
@@ -101,50 +88,30 @@ function init()
     lune.position.set(0,0,400);
     lune.rotation.set(0,0,0);
     lune.scale.set(0.5,0.5,0.5);
-    lune.castShadow = true;
-    lune.receiveShadow = true;
     Null2.attach(lune);
     renderer.render(scene,camera);
   })
 
 }
 
-
-//Secondesx
-function renderun()
-{
-  Null.rotation.y += second();
-  renderer.render(scene,camera);
-  requestAnimationFrame(renderun);
-}
-
-requestAnimationFrame(renderun);
-//Heures
-function renderdeux()
-{
-  monde.rotation.y += hour();
-  renderer.render(scene,camera);
-  requestAnimationFrame(renderdeux);
-}
-
-requestAnimationFrame(renderdeux);
 //Minutes
 function renderlune()
 {
-  Null2.rotation.y += minute();
+  Null2.rotation.y += 0.1;
   renderer.render(scene,camera);
   requestAnimationFrame(renderlune);
 }
 requestAnimationFrame(renderlune);
-//Rotation lune
-function renderlunetourner()
-{
-  lune.rotation.y += 0.01;
-  renderer.render(scene,camera);
-  requestAnimationFrame(renderlunetourner);
-}
-requestAnimationFrame(renderlunetourner);
 
+function renderMonde()
+{
+  monde.render.y += 0.05;
+  renderer.render(scene,camera);
+  requestAnimationFrame(renderMonde);
+}
+requestAnimationFrame(renderMonde);
+
+init();
 
 function onWindowResize() {
   camera.aspect = container.clientWidth / container.clientHeight;
@@ -155,14 +122,13 @@ function onWindowResize() {
 
 function setup() {
   createCanvas(200, 65); // Ne pas toucher à cette ligne
-  init();
 }
 
 window.addEventListener("resize", onWindowResize);
 
 function draw() {
-  background(0);
-  showTime(); // Ne pas toucher à cette ligne
+  //background(0);
+  //showTime(); // Ne pas toucher à cette ligne
   console.log(minute());
 }
 
@@ -190,4 +156,16 @@ function formatTime(value) {
   }
   return value;
 }
+
+window.requestAnimFrame = (function(){
+  return  window.requestAnimationFrame       ||
+          window.webkitRequestAnimationFrame ||
+          window.mozRequestAnimationFrame    ||
+          window.ieRequestAnimationFrame     ||
+          function( callback ){
+            window.setTimeout(callback, 1000 / 60);
+          };
+})();
+
+
 // -----------------------------------//
