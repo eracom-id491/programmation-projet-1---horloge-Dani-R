@@ -6,6 +6,11 @@ function preload() {
 }
 // ---------------------------------- s//
 
+function setup()
+{
+  createCanvas(200,65);
+}
+
 function draw() {
   background(0);
   showTime(); // Ne pas toucher à cette ligne

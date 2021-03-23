@@ -76,7 +76,6 @@ function chargementmodels()
     satM.castShadow  = true;
     Null.attach(satM);
     Null.rotation.y = second()*-6;
-    Attachable = Null.attach(satM);
     renderer.render(scene,camera);
   })
 
@@ -89,7 +88,7 @@ function chargementmodels()
     lune.receiveShadow  = true;
     lune.castShadow  = true;
     Null2.attach(lune);
-    Null2.rotation.y = minute()*-6;
+    Null2.rotation.y = minute()*6;
     renderer.render(scene,camera);
   })
   
@@ -118,12 +117,13 @@ init();
 //Animations
 
 //Minutes
-//Lune Minutes
-/*
+//Lune Minute
+
 function minutesLune()
 {
+  //calcul (deltatime / nombre de millisecondes dans une minute) * 360 / 60 minutes
     requestAnimationFrame(minutesLune);
-    Null2.rotation.y += 0.006;
+    Null2.rotation.y += ((deltaTime/60000)*6);
     renderer.render(scene, camera);
 }
     requestAnimationFrame(minutesLune);
@@ -131,17 +131,18 @@ function minutesLune()
     function rotationAxeLune()
 {
     requestAnimationFrame(rotationAxeLune);
-    lune.rotation.y += 0.006;
+    lune.rotation.y += ((deltaTime/60000)*6);
     renderer.render(scene, camera);
 }
     requestAnimationFrame(rotationAxeLune);
 
-    
+
 //Satelite
 function secondesSatelite()
 {
+  //calcul (deltatime / nombre de millisecondes dans une seconde) * 360 / 60 secondes
     requestAnimationFrame(secondesSatelite);
-    Null.rotation.y += 0.36;
+    Null.rotation.y += ((deltaTime/1000)*6);
     renderer.render(scene,camera);
 }
     requestAnimationFrame(secondesSatelite);
@@ -149,12 +150,13 @@ function secondesSatelite()
 
 function HeureMonde()
 {
+    //calcul (deltatime / nombre de millisecondes dans une heure) * 360 / 24 heure
     requestAnimationFrame(HeureMonde);
-    monde.rotation.y += 0.001;
+    monde.rotation.y += ((deltaTime/3600000)*15);
     renderer.render(scene,camera);
 }
     requestAnimationFrame(HeureMonde);  
-*/
+
 function onWindowResize() {
   camera.aspect = container.clientWidth / container.clientHeight;
   camera.updateProjectionMatrix();
@@ -162,13 +164,4 @@ function onWindowResize() {
   renderer.setSize(container.clientWidth, container.clientHeight);
 }
 
-function setup() {
-
-}
-
 window.addEventListener("resize", onWindowResize);
-
-function draw()
-{
-
-}
