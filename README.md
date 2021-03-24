@@ -1,10 +1,10 @@
 # p5-clock-template
  
-Horloge representée par 3 objects 3D
+Horloge représentée par 3 objets 3 D
 --
-Le satélite qui orbite autour de la terre effectue une rotation compléte chaque seconde
+Le satellite qui orbite autour de la terre effectue une rotation complète chaque seconde
 --
-La lune qui toune autour du monde effectue une rotation compléte chaque minute
+La lune qui toune autour du monde effectue une rotation complète chaque minute
 --
-Le monde effectue une rotation sur lui même chaque heure.
+Le monde effectue une rotation sur lui-même chaque heure.
 --
