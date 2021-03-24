@@ -8,17 +8,25 @@ function preload() {
 
 function setup()
 {
-  createCanvas(200,65);
+  createCanvas(170,200);
 }
 
 function draw() {
   background(0);
   showTime(); // Ne pas toucher à cette ligne
   console.log(minute());
+  textSize(14);
+  text('Monde = Heures', 10, 80);
+  fill(255, 255, 255);
+  text('Lune = Minutes', 10, 105);
+  fill(255, 255, 255);
+  text('Satélite = secondes', 10, 130);
+  fill(255, 255, 255);
 }
 
 function windowResized() {
-  resizeCanvas(200, 65); // Ne pas toucher à cette ligne
+  resizeCanvas(170, 200); // Ne pas toucher à cette ligne
+  
 }
 
 // Les blocs showTime et formatTime s'occupent d'afficher correctement l'heure en bas à gauche de la page.
@@ -32,7 +40,7 @@ function showTime() {
   textFont(customFont);
   fill(255); // <----- Changez cette valeur pour manipuler la couleur du texte
   textSize(36);
-  text(time, 20, height - 20);
+  text(time, 10, 40);
 }
 
 function formatTime(value) {
