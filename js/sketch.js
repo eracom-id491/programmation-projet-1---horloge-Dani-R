@@ -2,7 +2,7 @@ let customFont; // Ne pas toucher à cette ligne
 
 // Ne pas toucher au bloc ci-dessous
 function preload() {
-  //customFont = loadFont("../assets/SuisseBold.otf");
+  customFont = loadFont("../assets/SuisseBold.otf");
 }
 // ---------------------------------- s//
 

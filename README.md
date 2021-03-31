@@ -4,7 +4,7 @@
 Autour du monde
 --
 
-Horloge représentée par 3 objets 3 D
+j'ai créé une horloge qui est représentée par des objets 3 D, j'aime bien la 3D du coup j'ai essayé de l'intégrer avec du Javascript. Pour rendre ce projet possible j'ai dû utiliser la librairie Three Js, cette librairie permet d'afficher et manipuler des objets 3D. 
 
 Le satellite qui orbite autour de la terre effectue une rotation complète chaque seconde
 
